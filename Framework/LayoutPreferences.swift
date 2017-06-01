@@ -8,7 +8,8 @@
 
 import UIKit
 
-class LayoutPreferences: NSObject {
+
+public class LayoutPreferences: NSObject {
     
     public static func setStatusBarColor(color: UIColor) {
         
@@ -25,30 +26,51 @@ class LayoutPreferences: NSObject {
     }
     
     
-    public static func setStatusBarToWhite() {
+    public static func setStatusBarTextColorToWhite() {
         
         UIApplication.shared.statusBarStyle = .lightContent
     }
-
-}
-
-
-extension UIColor {
-    public convenience init(red: Int, green: Int, blue: Int, a: CGFloat = 1.0) {
-        self.init(
-            red: CGFloat(red) / 255.0,
-            green: CGFloat(green) / 255.0,
-            blue: CGFloat(blue) / 255.0,
-            alpha: a
-        )
+    
+    public static func navigationControllerProperties(color: UIColor, textColor: UIColor, iconColor: UIColor) {
+        
+        navigationControllerColor(color: color)
+        textColorToNavbar(color: textColor)
+        iconColorToNavbar(color: iconColor)
     }
     
-    public convenience init(rgb: Int, a: CGFloat = 1.0) {
+    
+    public static func navigationControllerColor(color: UIColor) {
+        
+        UINavigationBar.appearance().barTintColor = color
+    }
+    
+    public static func textColorToNavbar(color: UIColor) {
+        
+        UINavigationBar.appearance().titleTextAttributes =  [NSForegroundColorAttributeName: color]
+    }
+    
+    
+    public static func iconColorToNavbar(color: UIColor) {
+        
+        UINavigationBar.appearance().tintColor = UIColor.white
+    }
+}
+
+extension UIColor {
+    convenience public init(red: Int, green: Int, blue: Int) {
+        
+        assert(red >= 0 && red <= 255, "Invalid red component")
+        assert(green >= 0 && green <= 255, "Invalid green component")
+        assert(blue >= 0 && blue <= 255, "Invalid blue component")
+        
+        self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+    }
+    
+    convenience public init(rgb: Int) {
         self.init(
             red: (rgb >> 16) & 0xFF,
             green: (rgb >> 8) & 0xFF,
-            blue: rgb & 0xFF,
-            a: a
+            blue: rgb & 0xFF
         )
     }
 }
