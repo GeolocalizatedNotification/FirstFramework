@@ -11,6 +11,9 @@ import UIKit
 
 public class LayoutPreferences: NSObject {
     
+    /**
+     
+    */
     public static func setStatusBarColor(color: UIColor) {
         
         let statusBar: UIView = UIApplication.shared.value(forKey: "statusBar") as! UIView
@@ -53,6 +56,20 @@ public class LayoutPreferences: NSObject {
     public static func iconColorToNavbar(color: UIColor) {
         
         UINavigationBar.appearance().tintColor = UIColor.white
+    }
+    
+    /**
+     Method that will hide the application's navigationBar
+     */
+    public static func hideNavigationBar(navigationController: UINavigationController){
+        navigationController.setNavigationBarHidden(true, animated: true)
+    }
+    
+    /**
+     Method that that will change the view's background color
+     */
+    public static func changeViewBackgroundColor(view: UIView, color: UIColor){
+        view.backgroundColor = color
     }
 }
 
